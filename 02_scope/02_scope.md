@@ -1,179 +1,381 @@
 ---
-title: 认识头文件和源文件
-date: 2024-09-08 09:14:44
+title: 零基础C++(2) 作用域和存储空间
+date: 2024-08-31 10:08:55
 tags: C++ cppbase
 categories: C++ cppbase
 
 ---
 
-## 头文件和源文件
+### 变量计算
 
-在C++中，头文件（.h 或 .hpp 文件）和源文件（.cpp 文件）是组织代码的重要部分，它们共同工作以构建程序。这种分离有助于模块化和代码重用，同时也使得编译过程更加高效。
-
-### 头文件（.h 或 .hpp）
-
-头文件主要用于**声明**（declarations），包括：
-
-- 类（class）的声明
-- 函数（functions）的原型（prototypes）
-- 模板（templates）的声明
-- 宏定义（#define）
-- 外部变量（extern variables）的声明
-- 内联函数（inline functions）
-
-头文件通常包含预处理指令如 `#ifndef`、`#define` 和 `#endif`，这些指令用于防止头文件被重复包含（也称为“头文件保护”或“包含卫士”）。
-
-**示例头文件（example.h）**:
+> 整型， 浮点，双精度等变量支持计算，所谓计算就是我们熟悉的  `+` ,`-`,`*`,`/`,`%`等
 
 ``` cpp
-#ifndef EXAMPLE_H
-#define EXAMPLE_H
+void calculate(){
+    //整形变量支持计算，所谓计算就是我们熟悉的  `+` ,`-`,`*`,`/`,`%`等
+    int a = 10;
+    int b = 20;
+    std::cout << "a + b = " << a+b << std::endl;
+    std::cout << "a - b = " << a-b << std::endl;
+    std::cout << "a * b = " << a*b << std::endl;
+    std::cout << "a / b = " << a/b << std::endl;
+    std::cout << "a % b = " << a%b << std::endl;
+    //浮点型变量支持计算，所谓计算就是我们熟悉的  `+` ,`-`,`*`,`/`等
+    float c = 10.5;
+    float d = 20.3;
+    std::cout << "c + d = " << c+d << std::endl;
+    std::cout << "c - d = " << c-d << std::endl;
+    std::cout << "c * d = " << c*d << std::endl;
+    std::cout << "c / d = " << c/d << std::endl;
+    //浮点型变量支持计算，所谓计算就是我们熟悉的  `+` ,`-`,`*`,`/`等
+    double e = 10.5;
+    double f = 20.3;
+    std::cout << "e + f = " << e+f << std::endl;
+    std::cout << "e - f = " << e-f << std::endl;
+    std::cout << "e * f = " << e*f << std::endl;
+    std::cout << "e / f = " << e/f << std::endl;
+}
+
+```
+
+### ASCII码表
+
+计算机中字符是用ASCII码记录的，ASCII码为128字符（0-127）分配了唯一的数字编码，包括英文字母（大小写）、数字、标点符号和一些控制字符（如换行、回车等）。
+
+![https://cdn.llfc.club/ascii-1-1.png](https://cdn.llfc.club/ascii-1-1.png)
+
+比如字符`‘A’` 对应十进制的65，字符`‘a'`对应十进制的97.
+
+所以字符也可以计算
+
+``` cpp
+//字符变量支持计算，所谓计算就是我们熟悉的  `+` ,`-`,`*`,`/`等
+char g = 'a';
+char h = 'b';
+std::cout << "g + h = " << (int)(g+h) << std::endl;
+std::cout << "g - h = " << (int)(g-h) << std::endl;
+std::cout << "g * h = " << (int)(g*h) << std::endl;
+std::cout << "g / h = " << (int)(g/h) << std::endl;
+```
+
+### 类型划分
+
+> 各种数据类型可以支持转换，double, float，int, char 这种C++给我们提供的基本类型也叫做**内置类型**。
+
+> 我们以后学习了结构体struct和class等自定义类型后，这些类型叫做**复合类型**，**引用和指针也属于复合类型**。
+
+### 变量大小
+
+前文提过变量是存储在存储单元中，那么计算机为不同的变量分配的大小也不一样, 可以通过sizeof计算类型的大小
+
+``` cpp
+void sizeofnum(){
+    std::cout << "Size of char: " << sizeof(char) << " bytes\n";
+    std::cout << "Size of int: " << sizeof(int) << " bytes\n";
+    std::cout << "Size of float: " << sizeof(float) << " bytes\n";
+    std::cout << "Size of double: " << sizeof(double) << " bytes\n";
+    std::cout << "Size of long long: " << sizeof(long long) << " bytes\n";
+}
+```
+
+``` bash
+Size of char: 1 bytes
+Size of int: 4 bytes
+Size of float: 4 bytes
+Size of double: 8 bytes
+Size of long long: 8 bytes
+```
+
+### 类型转换
+
+这里仅看下内置类型转换，C++会自动推导转换,  复合类型之后再介绍。
+
+1B = 8bit  最大能表示127
+
+``` cpp
+char a = 100; // 100 是int类型，然后赋值给 char， int是四字节，char 是1字节，如果数字过大会损失精度。
+int b = a;    // char 转换为 int类型，不会损失数据
+double c = b; // int 转换为 double（算数转换）
+
+std::cout << "a = " << static_cast<int>(a) << ", b = " << b << ", c = " << c << std::endl;
+
+// 注意：下面的转换可能会导致数据丢失
+unsigned int d = -1; // int 转换为 unsigned int，导致数据丢失
+std::cout << "d = " << d << std::endl; // 输出一个很大的数
+```
+
+
+
+### 变量作用域
+
+在C++中，变量作用域（Scope）指的是程序中变量可以被访问的代码区域。作用域决定了变量的生命周期和可见性。
+
+我可以解释几种常见的变量作用域类型：
+
+1. **全局作用域**：在函数外部声明的变量具有全局作用域。它们可以在程序的任何地方被访问，但通常建议在需要时才使用全局变量，因为它们可能导致代码难以理解和维护。
+2. **局部作用域**：在函数内部、代码块（如`if`语句、`for`循环等）内部声明的变量具有局部作用域。它们只能在声明它们的代码块内被访问。一旦离开该代码块，这些变量就不再可见。
+3. **命名空间作用域**：在命名空间中声明的变量（实际上是实体，如变量、函数等）具有命名空间作用域。它们只能在相应的命名空间内被直接访问，但可以通过使用命名空间的名称作为前缀来从外部访问。
+4. **类作用域**：在类内部声明的成员变量和成员函数具有类作用域。成员变量和成员函数可以通过类的对象来访问，或者在某些情况下（如静态成员）可以通过类名直接访问。
+5. **块作用域**：这是局部作用域的一个特例，指的是由大括号`{}`包围的代码块内部声明的变量。这些变量只能在该代码块内被访问。
+
+#### 全局作用域
+
+``` cpp
+#include <iostream>
+
+// 全局变量，具有全局作用域
+int globalVar = 42;
+
+void func() {
+    std::cout << "Inside func: globalVar = " << globalVar << std::endl;
+}
+
+int main() {
+    std::cout << "Inside main: globalVar = " << globalVar << std::endl;
+    func(); // 访问全局变量
+    return 0;
+}
+```
+
+#### 局部作用域
+
+``` cpp
+#include <iostream>
+
+void func() {
+    // 局部变量，具有局部作用域
+    int localVar = 10;
+    std::cout << "Inside func: localVar = " << localVar << std::endl;
+    // localVar 在这里之后就不再可见
+}
+
+int main() {
+    // 尝试访问 localVar 会导致编译错误
+    // std::cout << "localVar = " << localVar << std::endl; // 错误
+    func(); // 局部变量仅在func函数内部可见
+    return 0;
+}
+```
+
+#### 命名空间作用域
+
+``` cpp
+#include <iostream>
+
+// 定义一个命名空间
+namespace MyNamespace {
+    // 命名空间内的变量，具有命名空间作用域
+    int namespaceVar = 20;
+
+    void printVar() {
+        std::cout << "Inside MyNamespace: namespaceVar = " << namespaceVar << std::endl;
+    }
+    
+    int globalVar = 0;
+}
+
+namespace MyNamespace2 {  
+    int globalVar = 0;
+}
+
+int main() {
+    // 使用命名空间前缀访问变量
+    std::cout << "Outside MyNamespace: namespaceVar = " << MyNamespace::namespaceVar << std::endl;
+    MyNamespace::printVar(); // 访问命名空间内的函数
+    return 0;
+}
+
+```
+
+#### 类作用域
+
+``` cpp
+#include <iostream>
 
 class MyClass {
 public:
-    MyClass(); // 构造函数声明
-    void myFunction(); // 成员函数声明
+    // 成员变量，具有类作用域
+    int classVar;
+
+    // 成员函数，也可以访问类作用域内的成员变量
+    void printVar() {
+        std::cout << "Inside MyClass: classVar = " << classVar << std::endl;
+    }
 };
 
-#endif
+int main() {
+    MyClass obj;
+    obj.classVar = 30; // 通过对象访问成员变量
+    obj.printVar(); // 访问成员函数
+    // 尝试直接访问 classVar 会导致编译错误
+    // std::cout << "classVar = " << classVar << std::endl; // 错误
+    return 0;
+}
 ```
 
-### 源文件（.cpp）
-
-源文件包含实际的代码实现，即函数体、类的成员函数的实现等。源文件通常包括必要的头文件，以便编译器知道它们正在使用的函数、类等是如何声明的。
-
-**示例源文件（example.cpp）**:
+#### 块作用域
 
 ``` cpp
-#include "example.h"
 #include <iostream>
 
-MyClass::MyClass() {
-    // 构造函数实现
+void func() {
+    {
+        // 块内局部变量，具有块作用域
+        int blockVar = 5;
+        std::cout << "Inside block: blockVar = " << blockVar << std::endl;
+        // blockVar 在这个代码块之后就不再可见
+    }
+    // 尝试访问 blockVar 会导致编译错误
+    // std::cout << "blockVar = " << blockVar << std::endl; // 错误
 }
 
-void MyClass::myFunction() {
-    std::cout << "Hello from MyClass::myFunction!" << std::endl;
+int main() {
+    func(); // 访问块作用域变量仅在func函数内部的代码块内有效
+    return 0;
 }
 ```
 
-### 编译过程
+### 存储区域
 
-在编译C++程序时，编译器会首先处理源文件（.cpp 文件）。对于源文件中的每个 `#include` 指令，编译器都会查找并包含相应的头文件（.h 或 .hpp 文件）。然后，编译器将处理源文件中的所有实现代码，并将它们与从头文件中获取的声明进行匹配。
+在C++中，内存存储通常可以大致分为几个区域，这些区域根据存储的数据类型、生命周期和作用域来划分。这些区域主要包括：
 
-### 注意事项
+1. **代码区（Code Segment/Text Segment）**：
+    - 存储程序执行代码（即机器指令）的内存区域。这部分内存是共享的，只读的，且在程序执行期间不会改变。
+    - 举例说明：当你编译一个C++程序时，所有的函数定义、控制结构等都会被转换成机器指令，并存储在代码区。
+2. **全局/静态存储区（Global/Static Storage Area）**：
+    - 存储全局变量和静态变量的内存区域。这些变量在程序的整个运行期间都存在，但它们的可见性和生命周期取决于声明它们的作用域。
+    - 举例说明：全局变量（在函数外部声明的变量）和静态变量（使用`static`关键字声明的变量，无论是在函数内部还是外部）都会存储在这个区域。
+3. **栈区（Stack Segment）**：
+    - 存储局部变量、函数参数、返回地址等的内存区域。栈是一种后进先出（LIFO）的数据结构，用于存储函数调用和自动变量。
+    - 举例说明：在函数内部声明的变量（不包括静态变量）通常存储在栈上。当函数被调用时，其参数和局部变量会被推入栈中；当函数返回时，这些变量会从栈中弹出，其占用的内存也随之释放。
+4. **堆区（Heap Segment）**：
+    - 由程序员通过动态内存分配函数（如`new`和`malloc`）分配的内存区域。堆区的内存分配和释放是手动的，因此程序员需要负责管理内存，以避免内存泄漏或野指针等问题。
+    - 举例说明：当你使用`new`操作符在C++中动态分配一个对象或数组时，分配的内存就来自堆区。同样，使用`delete`操作符可以释放堆区中的内存。
+5. **常量区（Constant Area）**：
+    - 存储常量（如字符串常量、const修饰的全局变量等）的内存区域。这部分内存也是只读的，且通常在程序执行期间不会改变。
+    - 举例说明：在C++中，使用双引号括起来的字符串字面量通常存储在常量区。此外，使用`const`关键字声明的全局变量，如果其值在编译时就已确定，也可能存储在常量区。
 
-- 头文件应该只包含声明，源文件应该包含实现。
-- 使用头文件保护来避免头文件被重复包含。
-- 在大型项目中，合理组织头文件和源文件可以提高项目的可维护性和可扩展性。
-- 在编译时，确保所有的源文件都被编译，并且所有的头文件都被正确包含。
+``` cpp
+#include <iostream>
+#include <cstring> // 用于strlen
 
-通过这种方式，C++程序的结构变得更加清晰和模块化，有利于多人协作和代码重用。
+// 全局变量，存储在全局/静态存储区
+int globalVar = 10;
 
-`#pragma once` 和 宏定义（如 `#ifndef, #define, #endif`）都是用来防止头文件被重复包含的机制，但它们在工作方式和使用场景上存在一些区别。
+// 静态变量，也存储在全局/静态存储区，但仅在其声明的文件或函数内部可见
+static int staticVar = 20;
 
-## `pragma once`
+void func() {
+    // 局部变量，存储在栈区
+    int localVar = 30;
 
-### `pragma once`作用
+    // 静态局部变量，虽然声明在函数内部，但存储在全局/静态存储区，且只在第一次调用时初始化
+    static int staticLocalVar = 40;
 
-- **工作方式**：`#pragma once` 是一个非标准的但广泛支持的预处理指令，它告诉编译器该头文件在单个编译过程中只应被包含一次。编译器在第一次遇到 `#pragma once` 时会记住该文件名，并在后续的包含操作中忽略它。
-- **优点**：简单、直观、易于使用。不需要生成唯一的宏名，减少了出错的可能性。
-- **缺点**：不是 C++ 标准的一部分，尽管大多数现代编译器都支持它，但在某些旧的或特定的编译器中可能不受支持。
-- **使用场景**：在支持 `#pragma once` 的编译器中，推荐使用它作为防止头文件重复包含的首选方法。
+    std::cout << "Inside func:" << std::endl;
+    std::cout << "localVar = " << localVar << std::endl;
+    std::cout << "staticLocalVar = " << staticLocalVar << std::endl;
 
-### 宏定义（`#ifndef, #define, #endif`）
+    // 尝试通过动态内存分配在堆区分配内存
+    int* heapVar = new int(50);
 
-- **工作方式**：通过宏定义（通常称为“包含卫士”或“头文件保护”）来防止头文件被重复包含。首先检查一个特定的宏是否已定义，如果没有定义，则定义它并包含头文件的其余部分。如果宏已经定义，则跳过头文件的其余部分。
-- **优点**：是 C++ 标准的一部分，因此在所有 C++ 编译器中都是可用的。
-- **缺点**：需要为每个头文件生成一个唯一的宏名，这可能会增加出错的机会（例如，如果两个头文件不小心使用了相同的宏名）。
-- **使用场景**：在需要确保代码与所有 C++ 编译器兼容时，或者在不支持 `#pragma once` 的编译器中，使用宏定义来防止头文件重复包含。
+    std::cout << "heapVar = " << *heapVar << std::endl;
 
-### 总结
+    // 释放堆区内存（重要：实际使用中不要忘记释放不再使用的堆内存）
+    delete heapVar;
+}
 
-尽管 `#pragma once` 和 宏定义在功能上相似，但它们在实现方式和使用场景上有所不同。在大多数现代 C++ 项目中，推荐使用 `#pragma once`，因为它更简单、更直观，并且大多数现代编译器都支持它。然而，在需要确保与所有 C++ 编译器兼容的情况下，或者在不支持 `#pragma once` 的环境中，仍然需要使用宏定义来防止头文件被重复包含。
+int main() {
+    // 访问全局变量
+    std::cout << "Inside main:" << std::endl;
+    std::cout << "globalVar = " << globalVar << std::endl;
+    std::cout << "staticVar = " << staticVar << std::endl; // 注意：staticVar在外部不可见（除非在同一个文件中或通过特殊方式）
 
-## 程序如何编译的
+    // 调用函数，展示栈区和堆区的使用
+    func();
 
-### g++编译
+    // 字符串常量通常存储在常量区，但直接访问其内存地址并不是标准C++的做法
+    // 这里我们仅通过指针来展示其存在
+    const char* strConst = "Hello, World!";
+    // 注意：不要尝试修改strConst指向的内容，因为它是只读的
+    std::cout << "strConst = " << strConst << std::endl;
+    // 尝试获取字符串常量的长度（这不会修改常量区的内容）
+    std::cout << "Length of strConst = " << strlen(strConst) << std::endl;
 
-> g++是GNU（GNU's Not Unix）项目开发的C++编译器，它是GCC（GNU Compiler Collection，GNU编译器套件）的一个重要组成部分。GCC是一个支持多种编程语言的编译器集合，而g++则专门用于编译C++代码。
+    return 0;
+}
 
-
-
->- 在使用g++编译C++程序时，可能需要安装GCC或g++编译器。在大多数Linux发行版和Unix系统中，GCC和g++通常作为标准软件包的一部分进行安装。在Windows系统中，则可能需要下载并安装MinGW或Cygwin等工具来提供GCC和g++的支持。
-
-
-
-当使用 `g++` 编译器编译 `main.cpp` 并希望包含相关的头文件时，你实际上不需要在编译命令中直接指定头文件。编译器会在编译过程中自动查找并包含你在 `main.cpp` 或其他已包含的头文件中通过 `#include` 指令指定的头文件。
-
-然而，如果你的头文件位于非标准路径（即不在编译器的默认搜索路径中），你可能需要使用 `-I` 选项来指定额外的头文件搜索路径。
-
-假设你的头文件 `example.h` 位于与 `main.cpp` 相同的目录下，或者位于编译器默认搜索的头文件路径中，你可以简单地使用以下命令来编译 `main.cpp`：
-
-``` bash
-g++ main.cpp -o myprogram
 ```
 
-这里，`-o myprogram` 指定了输出文件的名称（在这个例子中是 `myprogram`）。如果你没有指定 `-o` 选项，编译器通常会生成一个名为 `a.out` 的可执行文件（在 Unix-like 系统中）。
+在这个示例中，我使用了全局变量、静态变量、局部变量、静态局部变量以及通过`new`操作符在堆上分配的内存来展示不同内存区域的使用。同时，我也提到了字符串常量，但请注意，直接访问其内存地址并不是C++编程中的标准做法，因为字符串常量通常是只读的，并且其存储位置取决于编译器和操作系统的实现。
 
-如果你的头文件位于不同的目录，比如 `include` 目录，并且 `main.cpp` 中包含了 `#include "example.h"`，你需要使用 `-I` 选项来告诉编译器在哪里查找这个头文件：
+另外，请注意，我在`func`函数中分配了堆内存并通过`delete`操作符释放了它。这是管理堆内存时的一个重要实践，以避免内存泄漏。然而，在实际应用中，更复杂的内存管理策略（如智能指针）可能更为合适。
 
-``` bash
-g++ -Iinclude main.cpp -o myprogram
+
+
+当您编译这个程序时，编译器会将`main`函数和`func`函数的代码转换成机器指令，并将这些指令存储在可执行文件的代码区中（尽管实际上是在磁盘上的可执行文件中，但在程序运行时，操作系统会将这些指令加载到内存的代码区中）。然后，当您运行这个程序时，CPU会从内存的代码区中读取这些指令并执行它们。
+
+###  程序编译过程
+
+C++程序的编译过程是一个相对复杂但有序的过程，它涉及将高级语言（C++）代码转换为机器可以执行的低级指令。在这个过程中，通常会生成几个中间文件，包括`.i`（预处理文件）、`.s`（汇编文件）和`.o`（目标文件或对象文件）。下面是这个过程的详细解释：
+
+#### 1. 预处理（Preprocessing）
+
+- **输入**：C++源代码文件（通常以`.cpp`或`.cxx`为后缀）。
+- **处理**：预处理器（通常是`cpp`）读取源代码文件，并对其进行宏展开、条件编译、文件包含（`#include`）等处理。
+- **输出**：生成预处理后的文件，通常具有`.i`后缀（尽管这个步骤可能不是所有编译器都会自动生成`.i`文件，或者可能需要特定的编译器选项来生成）。
+
+#### 2. 编译（Compilation）
+
+- **输入**：预处理后的文件（如果有的话，否则直接是源代码文件）。
+- **处理**：编译器（如`g++`、`clang++`等）将预处理后的文件或源代码文件转换为汇编语言代码。这个步骤是编译过程的核心，它执行词法分析、语法分析、语义分析、中间代码生成、代码优化等任务。
+- **输出**：生成汇编文件，通常具有`.s`或`.asm`后缀。
+
+#### 3. 汇编（Assembly）
+
+- **输入**：汇编文件。
+- **处理**：汇编器（如`as`、`gas`等）将汇编语言代码转换为机器语言指令（即目标代码），但这些指令仍然是针对特定架构的，并且尚未被链接成可执行文件。
+- **输出**：生成目标文件（或对象文件），通常具有`.o`、`.obj`或`.out`后缀。
+
+#### 4. 链接（Linking）
+
+- **输入**：一个或多个目标文件，以及可能需要的库文件（如C++标准库）。
+- **处理**：链接器（如`ld`、`lld`等）将目标文件和库文件合并成一个可执行文件或库文件。在这个过程中，链接器会解决外部符号引用（即函数和变量的调用），并将它们链接到正确的地址。
+- **输出**：生成可执行文件（在Unix-like系统中通常是`.out`、`.exe`或没有特定后缀，在Windows系统中是`.exe`）。
+
+
+
+我们将代码的CMakeList中设置编译选项，保存临时文件
+
+``` cpp
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -save-temps=obj")
+set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -save-temps=obj")
 ```
 
-在这个例子中，`-Iinclude` 告诉编译器在 `include` 目录下查找头文件。**注意，`-I` 选项后面紧跟的是目录名，而不是文件名**。
+点击Clion中的build，可以看到目录中生成了临时文件，包括
 
-如果你的项目包含多个源文件（`.cpp` 文件）和/或多个头文件，并且它们位于不同的目录中，
+>.i 文件表示预处理文件
+>
+>`.s`（汇编文件）
+>
+>`.o`（目标文件或对象文件）
 
-你可能还需要使用 `-L` 选项来指定库文件的搜索路径（如果你链接了外部库的话），以及使用 `-l` 选项来指定要链接的库名（去掉前缀 `lib` 和后缀 `.so` 或 `.a`）。但是，对于仅包含头文件和源文件的简单项目，通常只需要上述的编译命令即可。
 
-### `CMake`跨平台编译
 
-`CMake`是一个跨平台的自动化构建系统，它使用`CMakeLists.txt`文件来描述构建过程。下面是一个`CMake`的基本写法示例，这将指导你如何编写一个简单的`CMakeLists.txt`文件来构建一个可执行文件。
+![https://cdn.llfc.club/1725082193757.jpg](https://cdn.llfc.club/1725082193757.jpg)
 
-#### 示例：构建单个可执行文件
+#### 总结
 
-假设你有一个`C++`源文件`main.cpp`，你想用`CMake`来构建它。首先，你需要创建一个名为`CMakeLists.txt`的文件，通常这个文件位于你的项目根目录下。
+- `.i`文件是预处理后的文件，包含了所有宏展开、条件编译和文件包含的结果。
+- `.s`文件是汇编文件，包含了将C++代码转换为汇编语言后的结果。
+- `.o`文件是目标文件或对象文件，包含了汇编器生成的机器语言指令，但尚未被链接成可执行文件。
 
-``` bash
-# 设置CMake最小版本要求
-cmake_minimum_required(VERSION 3.10)
+这些文件在编译过程中扮演了重要的角色，帮助开发者理解和调试代码，同时也是编译链中不可或缺的一部分。不过，值得注意的是，并非所有编译器都会默认生成`.i`和`.s`文件，这可能需要特定的编译器选项来启用。
 
-# 设置项目名称和版本
-project(MyProject VERSION 1.0)
 
-# 添加一个可执行文件
-# 语法：add_executable(目标名 源文件...)
-add_executable(MyExecutable main.cpp)
-```
 
-在这个例子中：
+### 赞赏
 
-- `cmake_minimum_required(VERSION 3.10)`：这行设置了CMake构建系统的最小版本要求。你需要确保你的CMake版本至少是3.10或更高。
-- `project(MyProject VERSION 1.0)`：这行设置了项目的名称（`MyProject`）和版本（`1.0`）。这个命令也会创建一个变量`${PROJECT_NAME}`和`${MyProject_VERSION}`，尽管直接使用`MyProject_VERSION`不是强制的，因为CMake通常建议使用`${PROJECT_VERSION}`来引用版本。
-- `add_executable(MyExecutable main.cpp)`：这行定义了一个可执行文件目标。它告诉CMake你想将`main.cpp`编译成一个名为`MyExecutable`的可执行文件。构建时，CMake将自动找到适合你的平台的编译器和编译选项，并将`main.cpp`编译成可执行文件。
+感谢支持
 
-#### 构建项目
-
-在命令行中，首先进入包含`CMakeLists.txt`的目录，然后运行以下命令来配置CMake项目（这将生成一个构建系统，如Makefile）：
-
-``` bash
-mkdir build  # 创建一个名为build的目录（不是必须的，但推荐）
-cd build
-cmake ..     # 使用上级目录中的CMakeLists.txt配置项目
-```
-
-配置完成后，你可以使用生成的构建系统来构建项目。如果你使用的是Makefile（大多数Unix-like系统），则可以运行：
-
-``` bash
-make
-```
-
-这将编译你的项目，并生成可执行文件（在这个例子中是`MyExecutable`）。如果你是在Windows上，并且CMake配置的是生成Visual Studio项目文件，那么你需要使用Visual Studio来打开生成的项目文件并构建项目。
-
-#### 注意
-
-- `CMake`是一个非常强大的构建系统，支持多种编程语言、复杂的目标关系、库依赖、条件编译等高级功能。上面的例子仅展示了最基础的用法。
-- 总是建议使用一个单独的构建目录（如上面的`build`目录），这样就不会污染你的源代码目录。
-- `CMake`提供了大量的命令和变量，可以用来精确控制构建过程。建议查阅`CMake`的官方文档以了解更多信息。
+![https://cdn.llfc.club/dashang.jpg](https://cdn.llfc.club/dashang.jpg)
