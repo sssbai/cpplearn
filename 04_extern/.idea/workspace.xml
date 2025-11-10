@@ -8,9 +8,9 @@
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
   </component>
@@ -28,17 +28,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6002af8-64e7-4dde-921a-61b943871c3a" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../02_scope/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../02_scope/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/02_scope.md" beforeDir="false" afterPath="$PROJECT_DIR$/../02_scope/02_scope.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../02_scope/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/example.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/example.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../02_scope/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../02_scope/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="b6002af8-64e7-4dde-921a-61b943871c3a" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,9 +47,9 @@
     <option name="minorVersion" value="2.4" />
     <option name="productBranch" value="Classic" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="35ByXd6GplkaJxEFnTQKE2F3UPE" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -70,9 +60,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "CMake 应用程序.04_extern.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
@@ -80,6 +72,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/baishuai/Documents/Personal_Project/CPP/04_extern",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,12 +83,12 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="04_extern" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04_extern" TARGET_NAME="04_extern" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04_extern" RUN_TARGET_NAME="04_extern">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="04_extern" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="04_extern" TARGET_NAME="04_extern" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="04_extern" RUN_TARGET_NAME="04_extern">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -109,10 +102,16 @@
       <option name="presentableId" value="Default" />
       <updated>1762597799932</updated>
       <workItem from="1762597801080" duration="699000" />
+      <workItem from="1762761069581" duration="1922000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
   </component>
 </project>
