@@ -3,4 +3,6 @@ project(04_extern)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(04_extern main.cpp)
+add_executable(04_extern main.cpp
+        global.cpp
+        global.h)
