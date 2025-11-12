@@ -371,11 +371,3 @@ set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -save-temps=obj")
 - `.o`文件是目标文件或对象文件，包含了汇编器生成的机器语言指令，但尚未被链接成可执行文件。
 
 这些文件在编译过程中扮演了重要的角色，帮助开发者理解和调试代码，同时也是编译链中不可或缺的一部分。不过，值得注意的是，并非所有编译器都会默认生成`.i`和`.s`文件，这可能需要特定的编译器选项来启用。
-
-
-
-### 赞赏
-
-感谢支持
-
-![https://cdn.llfc.club/dashang.jpg](https://cdn.llfc.club/dashang.jpg)
