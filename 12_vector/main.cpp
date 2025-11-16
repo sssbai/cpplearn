@@ -6,10 +6,10 @@ struct Student {
     std::string name;
     float grade;
 };
-void addStudent(std::vector<Student>& students, int id_, std::string name_, float grade_);
-void deleteStudent(std::vector<Student>& students, std::string name);
-void displayStudents(std::vector<Student>& students, std::string name);
-void findStudent(std::vector<Student>& students, std::string name);
+void addStudent(std::vector<Student>& students);
+void deleteStudent(std::vector<Student>& students);
+void displayStudents(std::vector<Student>& students);
+void findStudent(std::vector<Student>& students);
 int main() {
     {
         // 向量（vector）是STL中的一种序列容器
@@ -334,7 +334,40 @@ int main() {
         std::cout << "Capacity after shrink_to_fit: " << vec.capacity() << std::endl;
     }
     {
+        std::vector<Student> students;
+        int choice;
 
+        do {
+            std::cout << "\n=== Student Management System ===\n";
+            std::cout << "1. Add Student\n";
+            std::cout << "2. Delete Student\n";
+            std::cout << "3. Display All Students\n";
+            std::cout << "4. Find Student by ID\n";
+            std::cout << "5. Exit\n";
+            std::cout << "Enter your choice (1-5): ";
+            std::cin >> choice;
+
+            switch(choice) {
+                case 1:
+                    addStudent(students);
+                    break;
+                case 2:
+                    deleteStudent(students);
+                    break;
+                case 3:
+                    displayStudents(students);
+                    break;
+                case 4:
+                    findStudent(students);
+                    break;
+                case 5:
+                    std::cout << "Exiting the system.\n";
+                    break;
+                default:
+                    std::cout << "Invalid choice. Please choose between 1-5.\n";
+            }
+
+        } while(choice != 5);
     }
     return 0;
 }
@@ -365,7 +398,7 @@ void deleteStudent(std::vector<Student> &students) {
     }
 }
 void displayStudents(std::vector<Student> &students) {
-    for (auto it = students.begin(); it != students.end();) {
+    for (auto it = students.begin(); it != students.end();++it) {
         std::cout << "ID: " << it->id << " Name: " << it->name << " Grade: " << it->grade << std::endl;
     }
 }
@@ -377,6 +410,7 @@ void findStudent(std::vector<Student> &students) {
     auto it = std::find_if(students.begin(), students.end(),[id](const Student &s){return s.id == id;});
     if (it != students.end()) {
         std::cout << "Student found.\n";
+        std::cout << "ID: " << it->id << " Name: " << it->name << " Grade: " << it->grade << std::endl;
     }
     else {
         std::cout << "Student not found.\n";
