@@ -227,6 +227,7 @@ int main() {
             cur_dest++;
         }
         *cur_dest = '\0';
+        // 输出拼接后的结果
         std::cout << "After strcat: " << dest << std::endl;
     }
 
