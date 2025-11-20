@@ -26,6 +26,7 @@ Student::Student(Student && student) noexcept
 
 // 拷贝赋值运算符
 Student& Student::operator=(const Student & student) {
+    // 避免自拷贝
     if (this == &student)
         return *this;
     name_ = student.name_;
@@ -37,7 +38,7 @@ Student& Student::operator=(const Student & student) {
 Student& Student::operator=(Student && student) noexcept {
     if (this == &student)
         return *this;
-    name_ = std::move(student.name_);
+    this->name_ = std::move(student.name_);
     age_ = std::move(student.age_);
     return *this;
 }
@@ -60,3 +61,26 @@ int Student::getAge() const {
     return age_;
 }
 
+// 静态成员函数
+void Student::testStatic() {
+
+}
+
+Student & Student::operator+(const Student &student) {
+    this->age_ += student.age_;
+    return *this;
+}
+
+std::ostream & operator<<(std::ostream &os, const Student &student) {
+    os << "student name: " << student.name_ << " age: " << student.age_;
+    return os;
+}
+
+// 友元函数
+void ChangeAge(Student &student, int age) {
+    student.age_ = age;
+}
+
+void StudentFriend::ChangeAge(Student &student, int age) {
+    student.age_ = age;
+}

@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+
 class Student {
 // 公有成员，可以被所有代码访问
 public:
@@ -17,7 +18,7 @@ public:
     Student() = delete;
     // 参数化构造函数
     Student(const std::string & name, int age);
-    // 拷贝构造函数
+    // 拷贝构造函数，& 符号防止无限拷贝构造
     Student(const Student & student);
     // 移动构造函数, noexcept 确保
     Student(Student && student ) noexcept;
@@ -40,8 +41,22 @@ public:
     void setAge(int age);
     int getAge() const;
 
+    // 静态成员函数
+    // 只能访问静态成员变量
+    static void testStatic();
+
+    // 重载 + 运算符
+    Student& operator + (const Student & student);
+    // 重载 << 运算符，两个参数，<< 不属于这个类的，是属于 cout 的，因此需要设置为友元函数
+    friend std::ostream& operator << (std::ostream & os, const Student & student);
+
     // 友元函数
-    // 友元函数可以访问类的私有和保护成员的
+    // 友元函数可以访问类的私有成员变量和保护成员变量
+    // 友元函数不属于类，因此不需要加Student::
+    friend void ChangeAge(Student & student, int age);
+
+    // 友元类
+    friend class StudentFriend;
 
 // 私有成员，仅能被类的成员函数和友元函数访问
 private:
@@ -54,5 +69,10 @@ private:
 protected:
 };
 
+class StudentFriend{
+public:
+    StudentFriend() = default;
+    void ChangeAge(Student & student, int age);
+};
 
 #endif //INC_19_CLASS_STUDENT_H

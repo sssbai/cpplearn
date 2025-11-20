@@ -466,6 +466,8 @@ Student() = delete;
 // 显式的使用编译器默认的析构函数
 ~Student() = default;
 ```
+### 5.10 static成员函数与成员变量
+static成员函数只能访问static成员变量
 
 ## 6. 拷贝控制
 
@@ -525,7 +527,7 @@ public:
         std::cout << "Copy assignment operator called.\n";
         if (this == &other)
             return *this; // 自赋值检查
-
+        // 这里 data_ 在构造函数时已经创建过堆空间 new，因此需要先释放，才能重新创建空间，避免空间泄漏
         delete[] data_; // 释放现有资源
 
         size_ = other.size_;
