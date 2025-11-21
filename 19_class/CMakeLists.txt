@@ -7,4 +7,5 @@ add_executable(19_class main.cpp
         Student.cpp
         Student.h
         MyString.cpp
-        MyString.h)
+        MyString.h
+)
